@@ -55,7 +55,7 @@ Synthesized and implemented with **AMD Vivado 2023.2** targeting the **Xilinx Ar
 
 | Configuration | Slice LUTs | Registers (FF) | DSP48E1 | BRAM (36Kb) |
 | :--- | :---: | :---: | :---: | :---: |
-| Core Only (Standalone OOC, M-mode) | 7,418 (11.7%) | 2,092 (1.6%) | 12 (5.0%) | 0 |
+| Core Only (Standalone OOC, M-mode) | 7,418 | 2,092 | 12 | 0 |
 | Core Only (Secure M+U mode) | 8,647 | 2,993 | 12 | 0 |
 | Full Evaluation SoC (Arty A7 Top) | 6,646 (10.5%) | 2,147 (1.7%) | 12 (5.0%) | 8 (5.9%) |
 
