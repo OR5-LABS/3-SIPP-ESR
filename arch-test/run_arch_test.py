@@ -45,6 +45,7 @@ def ensure_test_suite():
     suite_ok = (ARCH_DIR / "riscv-test-suite").exists()
     env_ok = (ARCH_DIR / "riscv-test-env").exists()
     if suite_ok and env_ok:
+        patch_test_suite()
         return
 
     upstream_dir = ARCH_DIR / "riscv-arch-test"
@@ -74,6 +75,27 @@ def ensure_test_suite():
             (ARCH_DIR / "riscv-test-env").symlink_to("riscv-arch-test/riscv-test-env")
         except OSError:
             pass
+
+    patch_test_suite()
+
+
+def patch_test_suite():
+    """Apply GNU Binutils >= 2.42 compatibility fix to riscv-test-suite arch_test.h.
+    
+    Binutils >= 2.42 rejects 'la x0, <symbol>' with 'Error: illegal operands'.
+    Wrapping 'la reg, val' with '.ifnc reg, x0' prevents emitting 'la' when rd=x0
+    in TEST_JALR_OP while preserving identical code layout and signatures for tag 2.7.4.
+    """
+    arch_test_h = ARCH_DIR / "riscv-test-suite" / "env" / "arch_test.h"
+    if arch_test_h.exists():
+        content = arch_test_h.read_text()
+        if ".ifnc reg, x0" not in content:
+            patched = re.sub(
+                r"(\.option\s+norvc;(?:\s*\\\n\s*\.align\s+UNROLLSZ;)?\s*\\?\n\s*)(la\s+reg,\s*val;)",
+                r"\1.ifnc reg, x0;\\\n        \2\\\n        .endif;",
+                content,
+            )
+            arch_test_h.write_text(patched)
 
 
 def find_toolchain():
