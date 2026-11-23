@@ -5,12 +5,20 @@
 SHELL := /usr/bin/env bash
 PYTHON ?= python3
 
-.PHONY: all sim cosim rvfi zcb trig debug priv axi rtos rtos-suite arch test fpga clean distclean help
+.PHONY: all sim cosim rvfi zcb trig debug priv axi rtos rtos-suite arch test bench coremark dhrystone fpga clean distclean help
 
 all: sim
 
 sim:
 	./build.sh sim
+
+bench: coremark dhrystone
+
+coremark:
+	cd coremark && ./run_coremark.sh
+
+dhrystone:
+	cd dhrystone && ./run_dhrystone.sh
 
 cosim:
 	./build.sh cosim
@@ -55,6 +63,9 @@ help:
 	@echo "3-SIPP-ESR Build System"
 	@echo "Targets:"
 	@echo "  make sim        - Run baseline smoke test in Verilator"
+	@echo "  make bench      - Run CoreMark and Dhrystone 2.1 benchmarks"
+	@echo "  make coremark   - Run CoreMark benchmark"
+	@echo "  make dhrystone  - Run Dhrystone 2.1 benchmark"
 	@echo "  make arch       - Clone and run official RISC-V Architectural Compliance suite"
 	@echo "  make test       - Run smoke test followed by architectural tests"
 	@echo "  make rtos       - Build and run FreeRTOS demo"

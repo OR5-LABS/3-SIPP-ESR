@@ -107,6 +107,9 @@ A single top-level **Makefile** covers standard workflows. For fine-grained simu
 
 ```bash
 make              # compile RTL + run self-checking smoke test
+make bench        # run CoreMark and Dhrystone 2.1 benchmarks
+make coremark     # run CoreMark benchmark
+make dhrystone    # run Dhrystone 2.1 benchmark
 make arch         # RISC-V Architectural Compliance suite — clones upstream on first run
 make rtos         # FreeRTOS preemptive demo + negative control
 make rtos-suite   # full 5-stage RTOS verification battery
