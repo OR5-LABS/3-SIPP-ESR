@@ -3,9 +3,9 @@ sim/
 build/
 build_ooc/
 arch-test/build/
-arch-test/riscv-arch-test/
-arch-test/riscv-test-suite/
-arch-test/riscv-test-env/
+arch-test/riscv-arch-test
+arch-test/riscv-test-suite
+arch-test/riscv-test-env
 *.vcd
 *.out
 *.vvp

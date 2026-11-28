@@ -98,6 +98,13 @@ def patch_test_suite():
             arch_test_h.write_text(patched)
 
 
+def _supports_zicsr(gcc):
+    """The suite builds with -march=...zicsr; older GCC (< 11.3) rejects it."""
+    r = subprocess.run([gcc, "-march=rv32i_zicsr", "-mabi=ilp32", "-x", "c", "-c", "-o", os.devnull, "-"],
+                       input=b"", capture_output=True)
+    return r.returncode == 0
+
+
 def find_toolchain():
     prefixes = []
     if "RISCV_TC" in os.environ:
@@ -106,11 +113,11 @@ def find_toolchain():
             tc = os.path.join(tc, "bin")
         prefixes.append(tc + "/")
 
-    tuples = ["riscv64-unknown-elf-", "riscv32-unknown-elf-", "riscv-none-elf-"]
+    tuples = ["riscv-none-elf-", "riscv64-unknown-elf-", "riscv32-unknown-elf-"]
     for pfx in [""] + prefixes:
         for t in tuples:
             gcc = f"{pfx}{t}gcc"
-            if shutil.which(gcc):
+            if shutil.which(gcc) and _supports_zicsr(gcc):
                 return {
                     "gcc": gcc,
                     "objcopy": f"{pfx}{t}objcopy",
@@ -371,7 +378,7 @@ def main():
         sys.exit(1)
     else:
         print(f"  {RED}Failed          : 0{RESET}")
-        print(f"  {BOLD}{GREEN}ALL {passed_count} TESTS PASSED (100% SPEC COMPLIANT)!{RESET}\n")
+        print(f"  {BOLD}{GREEN}ALL {passed_count} TESTS PASSED{RESET}\n")
         sys.exit(0)
 
 
