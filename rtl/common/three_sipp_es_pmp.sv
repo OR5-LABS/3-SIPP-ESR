@@ -4,7 +4,7 @@
 // Combinational access check for one memory reference (fetch / load / store).
 // Implements the standard PMP matching modes per region — OFF / TOR / NA4 /
 // NAPOT — with R/W/X permission bits and the L (lock) bit. This is the ISA
-// feature behind M/U memory isolation in Ibex/OpenTitan, Hazard3, SHAKTI, etc.
+// feature behind M/U memory isolation in Ibex/OpenTitan, Hazard3, etc.
 //
 //   * M-mode bypasses a region's permissions UNLESS that region is locked (L=1).
 //   * The lowest-numbered matching region wins (RISC-V priority rule).

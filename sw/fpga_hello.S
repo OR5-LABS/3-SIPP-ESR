@@ -5,7 +5,7 @@
 # (0x2000_1000) in a loop. Self-contained: no .data/.bss, stack at top of the
 # unified RAM. Links at 0x0 (core reset vector). Build: ../sw/build_fpga_hello.sh
 #
-# UART register map (vajra_uart):
+# UART register map (three_sipp_es_uart):
 #   0x10000000 R: status (bit0 = tx_busy)   W: tx data byte
 # ============================================================================
     .section .text.init

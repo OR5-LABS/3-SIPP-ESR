@@ -1,7 +1,7 @@
 // ============================================================================
 // three_sipp_es_uart.sv -- 3-SIPP-ESR-owned 8-N-1 UART (console).
 //
-// Modeled on vajra_uart but owned by 3-SIPP-ESR. Word-addressed register map
+// Owned by 3-SIPP-ESR. Word-addressed register map
 // (the SoC presents word-aligned CPU accesses):
 //   0x0 W : tx data byte (writing pushes the byte to the TX shift register)
 //   0x0 R : status  bit0 = tx_busy (shifter active)

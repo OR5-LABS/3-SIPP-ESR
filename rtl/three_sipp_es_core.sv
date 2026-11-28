@@ -3,7 +3,7 @@
 //
 // 3-SIPP-ESR is a compact, high-performance embedded-class core: a short 3-stage
 // pipeline with full forwarding and a dynamic branch predictor, in the space of
-// a SHAKTI E-class / ARM Cortex-M-style microcontroller.
+// an ARM Cortex-M-style microcontroller.
 //
 //   F : fetch (PC -> instr)
 //   X : decode + regfile read + ALU/branch/CSR/muldiv + memory-address
@@ -23,7 +23,7 @@ module three_sipp_es_core
 #(
   parameter logic [XLEN-1:0] RESET_PC = 32'h0000_0000,
   // SECURE=1 adds User privilege mode + an 8-region PMP (M/U memory isolation,
-  // SHAKTI-E / Ibex-secure / OpenTitan class). Default 0 keeps the M-mode-only
+  // Ibex-secure / OpenTitan class). Default 0 keeps the M-mode-only
   // footprint byte-identical, so the shared RV32IMAC compliance build is unchanged
   // and 3-SIPP-ESR stays 61/61.
   parameter bit              SECURE    = 1'b0,
